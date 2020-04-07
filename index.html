@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WeatherApp</title>
+     <!-- Compiled and minified CSS -->
+     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+     <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="container light-blue lighten-5">
+
+    <nav>
+        <div class="nav-wrapper amber darken-1">
+          <a href="#" class="brand-logo center blue-text text-darken-4">Weather Dashboard</a>
+        </div>
+    </nav>
+
+    <!-- Page Layout here -->
+    <div class="row">
+
+        <div class="col s3">
+            <!-- Search for a city goes here -->
+            <h6><strong> Search for a City</strong></h6>
+            <div class="input-field">
+                <input id="search" type="search" placeholder="Enter a city name" required>
+                <label class="label-icon" for="search"><i class="tiny material-icons">search</i></label>
+            </div>
+        </div>
+  
+        <div class="col s9">
+          <!-- The main dashboard  -->
+            <div class="divider"></div>
+            <div class="section">
+                <h5><strong> City Name (Date)</strong></h5>
+                <p>This section has the city information along with today's weather info</p>
+            </div>
+            <!-- The 5-day forecast  -->
+            <div class="divider"></div>
+            <div class="section">
+                <h6><strong> 5-Day Forcast</strong></h6>
+                <p>This section has the 5 day forcast for the selected city</p>
+            </div>
+        </div>
+  
+      </div>
+
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment-with-locales.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+<script src="script.js"></script>    
+</body>
+</html>
