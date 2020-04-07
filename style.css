@@ -1,5 +1,14 @@
 #search{
     width: 90%;
     height: 90%;
-    text-align: end;
+}
+.material-icons{
+    cursor: pointer;
+}
+.citynamebox{
+    height: 80%;
+}
+li{
+    box-sizing: border-box;
+    padding: 5px, 5px;
 }
