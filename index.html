@@ -20,34 +20,42 @@
 
     <!-- Page Layout here -->
     <div class="row">
-
         <!-- Search for a city goes here -->
         <div class="col s3">
             <h6><strong> Search for a City</strong></h6>
             <form class="search-wrapper">
                 <input id="search" type="text" placeholder="Search by city name" required/>
-                <i class="tiny material-icons" id="searchicon">search</i>
+                <button id="getWeather" type="submit">
+                    <i class="small material-icons" id="searchicon">search</i>
+                </button>
             </form>
         <!-- This section is to store search history -->
-            <div class="searchhist">
-            <h6><strong>Past Searches</strong></h6>
-                    <ul></ul> 
-            </div>
+            <h6><strong>Past Cities</strong></h6>    
+            <div id="search-hist"></div>
         </div>
   
         <!-- The main dashboard  -->
         <div class="col s9">
             <!-- City Name and weather details -->
             <div class="divider"></div>
-            <div class="section">
-                <h5 id="namendate" placeholder="City Name (Date)"><strong></strong></h5>
-                <p>This section has the city information along with today's weather info</p>
-            </div>
-            <!-- The 5-day forecast  -->
-            <div class="divider"></div>
-            <div class="section">
-                <h6><strong> 5-Day Forcast</strong></h6>
-                <p>This section has the 5 day forcast for the selected city</p>
+                <div class="section">
+                    <h5 class='card-title' id='cityName'>City</h5>
+                    <ul>
+                      <li><img id='weatherIcon'></img></li>
+                      <li class='card-text' id='curTemp'>Temperature:</li>
+                      <li class='card-text' id='curHum'>Humidity:</li>
+                      <li class='card-text' id='curWind'>Windspeed:</li>
+                      <li class='card-text' id='curUv'>UV Index:</li>
+                    </ul>
+                </div>
+            <!-- The 5-day forecast Title -->
+            <div class="divider"></div>        
+                <div class="section">
+                    <h6><strong> 5-Day Forecast</strong></h6>
+                </div>
+            <!-- 5 day forecast -->
+            <div class="divider"></div>   
+            <div class="section" id="forecast">
             </div>
         </div>
   

@@ -1,14 +1,20 @@
+/* Search box */
 #search{
-    width: 90%;
-    height: 90%;
+    width: 60%;
+    height: 70%;
 }
+/* Search button */
+#getWeather{
+    color: #fff;
+    background-color: #26a69a;
+}
+/* Search icon */
 .material-icons{
     cursor: pointer;
 }
-.citynamebox{
-    height: 80%;
-}
-li{
-    box-sizing: border-box;
-    padding: 5px, 5px;
+/* Past city button inside the search history section */
+.pastcity{
+    width: 80%;
+    height: 100%;
+    text-align: left;
 }
