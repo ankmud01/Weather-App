@@ -22,6 +22,38 @@ function addCityList(cityValue){
 } 
 
 //Function to create div to put information for hourly forecast
+function hourlyForecast(list){
+    for (var i=0; i < list.length; i++){
+        var dailydiv = $("<div>").attr("class","col s2");
+        var dailycard = $("<div>").attr("class", "card dailyforecast");
+        var dailycontent = $("<h6>").attr("class", "content");
+        dailycontent.text(list[i].date)
+        console.log(dailycontent);
+
+        var dailyul = $("<ul>");
+        var iconli = $("<li>")
+        var iconimage = $("<img>");
+        iconimage.attr("src", list[i].icon);
+        var weatherli = $("<li>");
+        weatherli.text(list[i].weather);
+        var templi = $("<li>");
+        templi.text=('Temperature: ' + list[i].temperature + " °F");
+        var humidli = $("<li>");
+        humidli.text=('Humidity: ' + list[i].humidity + "%");
+
+        iconli.append(iconimage);
+        dailyul.append(iconli);
+        dailyul.append(weatherli);
+        dailyul.append(templi);
+        dailyul.append(humidli);
+
+        dailycontent.append(dailyul);
+        dailycard.append(dailycontent);
+        dailydiv.append(dailycard);
+        $("#forecast").append(dailydiv);
+    }
+
+}
 
 
 //Function to get the weather condition for the day and forecast for 5 days
@@ -71,13 +103,30 @@ function weatherForecast(city){
         })
     })
 
-    var hourlyURL = "http://api.openweathermap.org/data/2.5/forecast?q=" + city + "&units=imperial&appid=dbc47b8d78e589660c7834e13c830d1b";
+
+    var weatherlistArr = [];
+    var weatherlistObj = {};
+    var hourlyURL = "http://api.openweathermap.org/data/2.5/forecast?q=" + city + "&cnt=6&units=imperial&appid=dbc47b8d78e589660c7834e13c830d1b";
     $.ajax({
         url: hourlyURL,
         method: "GET"
     }).then(function(hourlyWeathresponse){
         console.log(hourlyWeathresponse);
+        for(var i=1; i < hourlyWeathresponse.list.length; i++){
+            var weatherlist = hourlyWeathresponse.list[i];
+            console.log (weatherlist);
+            weatherlistObj = {
+                date: dateConvert(weatherlist.dt),
+                weather: weatherlist.weather[0].description,
+                icon: "http://openweathermap.org/img/wn/" + weatherlist.weather[0].icon + "@2x.png",
+                temperature: weatherlist.main.temp,
+                humidity: weatherlist.main.humidity
+            };
+            weatherlistArr.push(weatherlistObj);
+            console.log(weatherlistArr);
+        }
 
+        hourlyForecast(weatherlistArr);
     })
 
 }
