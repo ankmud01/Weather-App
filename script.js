@@ -1,8 +1,4 @@
 $(document).ready(function () {
-    //declaring variables
-    var searchSection = $("form");
-    var searchBox = $("#search")
-    var cityList = $("#search-hist");
 
     //getting current day using moment js
     const currentDate = moment();
@@ -15,16 +11,18 @@ $(document).ready(function () {
         var epoch = epoch + (new Date().getDate());
         return moment(epoch).format('MM/DD/YYYY');
 
-    }
+    };
 
     //Function to add searched city names to the past search section
     function addCityList(cityValue) {
+        if(cityValue.toUpperCase() !== cityValue){              //Added this condiditon so that i can separate between item that was entered from search vs clicked from past search
         var currLocation = $("<div>");                          //creating a div
         currLocation.addClass("btn waves-effect pastcity");     //adding class to the new div
         currLocation.attr("data-name", cityValue)               //adding attribute
         currLocation.text(cityValue.trim().toUpperCase())       //adding cityValue to div and changing it to uppercase
-        cityList.append(currLocation);                          //appending the div to past search section
-    }
+        $("#search-hist").append(currLocation);                 //appending the div to past search section
+        };
+    };
 
     //Function to create div to put information for hourly forecast section
     function hourlyForecast(list) {
@@ -61,10 +59,8 @@ $(document).ready(function () {
 
             //Appending all the dynamically created div to the static div on the html page
             $("#forecast").append(dailydiv);
-        }
-
-    }
-
+        };
+    };
 
     //Function to get all the weather condition for the day and forecast for 5 days
     function weatherForecast(city) {
@@ -72,45 +68,63 @@ $(document).ready(function () {
         var currentWeatherURL = "https://api.openweathermap.org/data/2.5/weather?q=" + city + "&units=imperial&appid=dbc47b8d78e589660c7834e13c830d1b";
         $.ajax({
             url: currentWeatherURL,
-            method: "GET"
-        }).then(function (currWeathresponse) {
-            console.log(currWeathresponse);
-            $("#weatherIcon").attr("src", "http://openweathermap.org/img/wn/" + currWeathresponse.weather[0].icon + "@2x.png");
-            $("#cityName").text(currWeathresponse.name).append(" (" + currentDate.format('MM/DD/YYYY') + ")");
-            $("#curTemp").text("Temperature: " + currWeathresponse.main.temp + " °F");
-            $("#curHum").text("Humidity: " + currWeathresponse.main.humidity + " %");
-            $("#curWind").text("Wind Speed: " + currWeathresponse.wind.speed + " MPH");
+            method: "GET",
 
-            var longitude = currWeathresponse.coord.lon;
-            console.log(longitude)
-            var latitude = currWeathresponse.coord.lat;
-            console.log(latitude)
-            //This api call utilizes the longitude and latitude from above call and finds the uv index. The for loop is for the color based on uv index value
-            var uvURL = "http://api.openweathermap.org/data/2.5/uvi?appid=dbc47b8d78e589660c7834e13c830d1b&lat=" + latitude + "&lon=" + longitude;
-            $.ajax({
-                url: uvURL,
-                method: "GET"
-            }).then(function (uvresponse) {
-                console.log(uvresponse)
-                var uvValue = parseFloat(uvresponse.value);
-                let color = '';
-                if (uvValue < 3) {
-                    color = 'green';
-                } else if (uvValue < 6) {
-                    color = 'yellow';
-                } else if (uvValue < 8) {
-                    color = 'orange'
-                } else if (uvValue < 11) {
-                    color = 'red'
-                } else {
-                    color = 'violet'
-                }
+            //success scenario
+            success: (function (currWeathresponse) {
+                console.log(currWeathresponse);
+                $("#weatherIcon").attr("src", "http://openweathermap.org/img/wn/" + currWeathresponse.weather[0].icon + "@2x.png");
+                $("#cityName").text(currWeathresponse.name).append(" (" + currentDate.format('MM/DD/YYYY') + ")");
+                $("#curTemp").text("Temperature: " + currWeathresponse.main.temp + " °F");
+                $("#curHum").text("Humidity: " + currWeathresponse.main.humidity + " %");
+                $("#curWind").text("Wind Speed: " + currWeathresponse.wind.speed + " MPH");
 
-                //adding a span element to the variable which holds uv value so that i can color the value
-                var uvColor = "UV Index: " + `<span style="background-color:${color}; padding: 0 7px 0 7px;">${uvresponse.value}</span>`;
-                console.log(uvColor);
 
-                $("#curUv").html(uvColor);
+                var longitude = currWeathresponse.coord.lon;
+                console.log(longitude)
+                var latitude = currWeathresponse.coord.lat;
+                console.log(latitude)
+
+                //This api call utilizes the longitude and latitude from above call and finds the uv index. The for loop is for the color based on uv index value
+                var uvURL = "http://api.openweathermap.org/data/2.5/uvi?appid=dbc47b8d78e589660c7834e13c830d1b&lat=" + latitude + "&lon=" + longitude;
+                $.ajax({
+                    url: uvURL,
+                    method: "GET"
+                }).then(function (uvresponse) {
+                    console.log(uvresponse)
+                    var uvValue = parseFloat(uvresponse.value);
+                    let color = '';
+                    if (uvValue < 3) {
+                        color = 'green';
+                    } else if (uvValue < 6) {
+                        color = 'yellow';
+                    } else if (uvValue < 8) {
+                        color = 'orange'
+                    } else if (uvValue < 11) {
+                        color = 'red'
+                    } else {
+                        color = 'violet'
+                    }
+
+                    //adding a span element to the variable which holds uv value so that i can color the value
+                    var uvColor = "UV Index: " + `<span style="background-color:${color}; padding: 0 7px 0 7px;">${uvresponse.value}</span>`;
+                    console.log(uvColor);
+
+                    $("#curUv").html(uvColor);
+                })
+
+                //The selected city will be added to the past search div and to local storage using addCityList and setSearchHist function respectively
+                addCityList(city.trim());
+                setSearchHist(city.trim().toUpperCase());
+                $("#forecast").text('');  
+
+            }),
+            
+            //error handler..It handles both user and network error
+            error: (function(currWeathresponse){
+                alert(currWeathresponse.responseJSON.message.toUpperCase() + " !!!..Please enter a valid city.")
+                console.log(currWeathresponse);
+                $("#search").val('');
             })
         })
 
@@ -140,17 +154,12 @@ $(document).ready(function () {
             hourlyForecast(weatherlistArr);
 
         })
-
     }
 
     //Adding eventlistener to get the city name text and load all the weather for the city
     $("#getWeather").click(function (event) {
         event.preventDefault();
-        weatherForecast(searchBox.val().trim());
-        addCityList(searchBox.val().trim());
-        setSearchHist(searchBox.val().trim().toUpperCase());
-        $("#forecast").text('');    //This will stop appending next city's 5 day forecast to current city
-
+        weatherForecast($("#search").val().trim().toLowerCase());
     });
 
     //Adding eventlistener to get the weather for the city when one of the past searched city is clicked
@@ -159,7 +168,7 @@ $(document).ready(function () {
         var pastCityName = $(event.target)[0]
         if (pastCityName.className === "btn waves-effect pastcity") {
             console.log(pastCityName.innerText);
-            weatherForecast(pastCityName.innerText.trim().toLowerCase());
+            weatherForecast(pastCityName.innerText.trim());
             $("#forecast").text('');
         }
     })
@@ -174,13 +183,14 @@ $(document).ready(function () {
         });
 
         localStorage.setItem('cityValue', JSON.stringify(refinedsearchCity))
-        searchBox.val('');          //This will clear out the searchbox after settng the city name to local storage
+        $("#search").val('');          //This will clear out the searchbox after settng the city name to local storage
 
     };
 
     //Function to get search History from local storage
     function getSearchHist() {
-        var searchedCity = JSON.parse(localStorage.getItem('cityValue')) || [];
+        var searchedCity = JSON.parse(localStorage.getItem('cityValue').toLowerCase()) || [];
+        // var searchedCity = pastSearch.text.toLowerCase()
         searchedCity.forEach(addCityList);
     }
 
