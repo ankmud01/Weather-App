@@ -190,8 +190,13 @@ $(document).ready(function () {
 
     //Function to get search History from local storage
     function getSearchHist() {
-        var searchedCity = JSON.parse(localStorage.getItem('cityValue').toLowerCase()) || [];
-        // var searchedCity = pastSearch.text.toLowerCase()
+        var pastSearch = JSON.parse(localStorage.getItem('cityValue'))|| [];
+        console.log(pastSearch);
+        var searchedCity = [];
+        for (var i=0; i<pastSearch.length; i++){
+            searchedCity.push(pastSearch[i].toLowerCase());
+        }
+        console.log(searchedCity);
         searchedCity.forEach(addCityList);
     }
 
