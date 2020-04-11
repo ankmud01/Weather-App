@@ -87,7 +87,7 @@ $(document).ready(function () {
                 console.log(latitude)
 
                 //This api call utilizes the longitude and latitude from above call and finds the uv index. The for loop is for the color based on uv index value
-                var uvURL = "http://api.openweathermap.org/data/2.5/uvi?appid=dbc47b8d78e589660c7834e13c830d1b&lat=" + latitude + "&lon=" + longitude;
+                var uvURL = "https://api.openweathermap.org/data/2.5/uvi?appid=dbc47b8d78e589660c7834e13c830d1b&lat=" + latitude + "&lon=" + longitude;
                 $.ajax({
                     url: uvURL,
                     method: "GET"
@@ -132,7 +132,7 @@ $(document).ready(function () {
         //This api call is to get the 5 day forecast for the city
         var weatherlistArr = [];
         var weatherlistObj = {};
-        var hourlyURL = "http://api.openweathermap.org/data/2.5/forecast?q=" + city + "&units=imperial&appid=dbc47b8d78e589660c7834e13c830d1b";
+        var hourlyURL = "https://api.openweathermap.org/data/2.5/forecast?q=" + city + "&units=imperial&appid=dbc47b8d78e589660c7834e13c830d1b";
         $.ajax({
             url: hourlyURL,
             method: "GET"
