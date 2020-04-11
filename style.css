@@ -28,6 +28,9 @@ h5{
 .material-icons{
     cursor: pointer;
 }
+::placeholder{
+    color: lightslategray;
+}
 /* Past city button inside the search history section */
 .pastcity{
     width: 80%;
