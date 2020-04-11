@@ -28,7 +28,7 @@ $(document).ready(function () {
     function hourlyForecast(list) {
         for (var i = 0; i < list.length; i++) {
             //Creating div element and a header tag to place the lines which has the list of values
-            var dailydiv = $("<div>").attr("class", "col s2");
+            var dailydiv = $("<div>").attr("class", "col s2 ddiv");
             var dailycard = $("<div>").attr("class", "card dailyforecast");
             var dailycontent = $("<h6>").attr("class", "content");
             dailycontent.text(list[i].date)
@@ -41,7 +41,7 @@ $(document).ready(function () {
             var weatherli = $("<li>");
             weatherli.text(list[i].weather);
             var templi = $("<li>");
-            templi.text("Temperature: " + list[i].temperature + " °F");
+            templi.text("Temp: " + list[i].temperature + " °F");
             var humidli = $("<li>");
             humidli.text("Humidity: " + list[i].humidity + "%");
 
@@ -75,6 +75,7 @@ $(document).ready(function () {
                 console.log(currWeathresponse);
                 $("#weatherIcon").attr("src", "http://openweathermap.org/img/wn/" + currWeathresponse.weather[0].icon + "@2x.png");
                 $("#cityName").text(currWeathresponse.name).append(" (" + currentDate.format('MM/DD/YYYY') + ")");
+                $("#curweather").text(currWeathresponse.weather[0].description);
                 $("#curTemp").text("Temperature: " + currWeathresponse.main.temp + " °F");
                 $("#curHum").text("Humidity: " + currWeathresponse.main.humidity + " %");
                 $("#curWind").text("Wind Speed: " + currWeathresponse.wind.speed + " MPH");

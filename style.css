@@ -1,7 +1,23 @@
+/* Main dahboard section */
+#maindashboard{
+    background-color:skyblue;
+}
+h5{
+    font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen-Sans,Ubuntu,Cantarell,"Helvetica Neue",sans-serif;;
+    font-size: 35px;
+    margin-top: 0px;
+    font-weight: unset;
+}
+#weatherIcon{
+    border-style: none;
+    margin-bottom: 10px;
+    background-color: none;
+}
 /* Search box */
 #search{
     width: 60%;
     height: 70%;
+    color: black;
 }
 /* Search button */
 #getWeather{
@@ -18,3 +34,44 @@
     height: 100%;
     text-align: center;
 }
+/* Current Weather section */
+.card-text{
+    font-size: 15px;
+}
+
+/* 5 day forecast result section */
+#fiveday{
+    font-size: 25px;
+}
+#forecast{
+    width: 100%;
+    height: 100%;
+    margin-left: 20px;
+    margin-top: 10px;
+}
+li{
+    font-size: 10px;
+    margin-left: 20px;
+    font-weight: bold;
+    text-align: left;
+    font-style: italic;
+}
+img{
+    /* margin-left: 15px; */
+    border-style: groove;
+    background-color: aqua;
+}
+.ddiv{
+    width: 20%;
+}
+.content{
+    text-align: center;
+    margin-top: 12px;
+    font-size: 15px;
+    font-weight: bold;
+}
+.dailyforecast{
+    color: black;
+    background-color:skyblue;
+}
+

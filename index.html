@@ -10,7 +10,7 @@
      <link rel="stylesheet" href="style.css">
 </head>
 <body>
-<div class="container light-blue lighten-5">
+<div class="container blue darken-1">
 
     <nav>
         <div class="nav-wrapper amber darken-1">
@@ -19,7 +19,7 @@
     </nav>
 
     <!-- Page Layout here -->
-    <div class="row">
+    <div class="row" id="maindashboard">
         <!-- Search for a city goes here -->
         <div class="col s3">
             <h6><strong> Search for a City</strong></h6>
@@ -42,6 +42,7 @@
                     <h5 class='card-title' id='cityName'>City</h5>
                     <ul>
                       <li><img id='weatherIcon'></img></li>
+                      <li class='card-text' id='curweather'></li>
                       <li class='card-text' id='curTemp'>Temperature:</li>
                       <li class='card-text' id='curHum'>Humidity:</li>
                       <li class='card-text' id='curWind'>Windspeed:</li>
@@ -51,10 +52,10 @@
             <!-- The 5-day forecast Title -->
             <div class="divider"></div>        
                 <div class="section">
-                    <h6><strong> 5-Day Forecast</strong></h6>
+                    <h6 id="fiveday"><strong> 5-Day Forecast</strong></h6>
                 </div>
             <!-- 5 day forecast -->
-            <div class="divider"></div>   
+            <div class="divider"></div>
             <div class="row" id="forecast"></div>
         </div>
   
